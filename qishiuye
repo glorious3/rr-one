@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*body{*/
+        /*    margin: 0px;*/
+        /*    padding: 0px;*/
+        /*    background-color: white;*/
+        /*}*/
+        /*img{*/
+        /*    height: 100vh;*/
+        /*    width: 250vh;*/
+        /*}*/
+        body {
+            background: url("01.jpg") no-repeat center center;   /*加载背景图*/;
+            /*background:url("zz.jpeg")  no-repeat center center;   !*加载背景图*!   !* 背景图不平铺 *!*/
+            background-size:cover;  /* 让背景图基于容器大小伸缩 */
+            background-attachment:fixed;        /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */    //此条属性必须设置否则可能无效/
+            background-color:#CCCCCC;   /* 设置背景颜色，背景图加载过程中会显示背景色 */
+
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100vh;
+            /*display: flex;*/
+        }
+        .center{
+            display: flex;
+
+            flex-direction:column;
+        }
+        h1{
+            /*font-family: 楷体;*/
+            /*font:italic bold 60px/100px arial, 楷体;*/
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+            font-size: 60px;
+            line-height: 100px;
+            font-family: Georgia,'Times New Roman', Times, serif;
+            border-bottom: 1px solid white;
+            display: flex;
+            justify-content:center;
+        }
+
+        .showTime{
+            font:italic bold 60px/100px arial, 楷体;
+            /*margin: ;*/
+            display: flex;
+            justify-content:center;
+            /*color: azure;*/
+        }
+        .mode{
+            display: flex;
+            justify-content:center;
+            margin-top: 30px;
+            flex-direction:row;
+            /*flex-direction:column;*/
+        }
+        .jilu{
+            display: flex;
+            justify-content:center;
+            margin-top: 30px;
+            flex-direction:column;
+        }
+        #sr{
+
+            /*line-height: 100px;*/
+            /*font-size: 60px;*/
+            /* border: 0;*/
+            /*color: #0000cc;*/
+            border-bottom: 2px solid #fff;
+            padding: 4px 2px;
+            display: block;
+            background: 0;
+            line-height: 1.5;
+            outline: none;
+            text-align: center;
+            border-radius: 0;
+            color: rgb(237 85 106);
+            font-size: 2rem;
+            max-width: 90%;
+        }
+
+        #save{
+            margin-left: 30px;
+            /*margin-right: 10px;*/
+            font-weight: bold;
+            font-size: 2rem;
+            color: rgb(249,193, 22);
+            border-radius: 50%;
+            /*background: #0000cc;*/
+            height: 60px;
+            width: 60px;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+
+        }
+        #btn{
+            margin-left: 30px;
+            /*margin-right: 10px;*/
+            font-weight: bold;
+            font-size: 2rem;
+            /*color: rgb(95, 95, 95);*/
+            /*background: #0000cc;*/
+            color: rgb(249,193, 22);
+            height: 60px;
+            width: 100px;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+
+        }
+        .andong{
+            display: flex;
+            justify-content:center;
+            margin-top: 30px;
+
+        }
+        /*input{*/
+        /*    display: flex;*/
+        /*    justify-content:center;*/
+        /*    !*margin-top: 30px;*!*/
+        /*    flex-direction:column;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<!--<img src="01.jpg"/>-->
+<div class="center">
+
+    <h1>每日任务清单</h1>
+    <!--时间-->
+    <div class="showTime"></div>
+    <div class="mode">
+
+        <div class="jilu">
+            <input  placeholder="重要的事情？"  id="sr">
+
+        </div>
+
+        <div class="andong">
+            <span id ="save" onclick="change()">✔</span>
+            <button id="btn">+</button>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<script>
+        let addTaskBtn = document.querySelector('button');
+        addTaskBtn.onclick = function() {
+            // 1. 获取输入到的内容
+            let input = document.querySelector('.jilu input');
+            let taskContent = input.value;
+            // 2. 创建一个 div.row, 里面设置上面需要的 复选框, 文本， 删除按钮
+            let row = document.createElement('div');
+            row.className = 'row';
+            let inputt = document.createElement('input');
+            inputt.style="border-bottom: 2px solid #fff;\n" +
+                "            padding: 4px 2px;\n" +
+                "            display: block;\n" +
+                "            background: 0;\n" +
+                "            line-height: 1.5;\n" +
+                "            outline: none;\n" +
+                "            text-align: center;\n" +
+                "            border-radius: 0;\n" +
+                "            color: rgb(237 85 106);\n" +
+                "            font-size: 2rem;\n" +
+                "            max-width: 90%;\n" +
+                "            margin-top: 60px;\n" +
+                "            margin-left: 100px;\n"+
+                "            display: flex;\n"+
+                "justify-content:center;\n"+
+                "margin-top: 30px;\n"+
+                "flex-direction:column;\n"
+
+            inputt.type = 'placeholder';
+            let span = document.createElement('span');
+            span.innerHTML = taskContent;
+            row.appendChild(inputt);
+            row.appendChild(span);
+            // 3. 把 div.row 添加到 .left 中
+            let left = document.querySelector('.jilu');
+            left.appendChild(row);
+
+        }
+
+
+        let youshi = false;
+        function change() {
+          let save = document.getElementById("save");
+          let sr = document.getElementById("sr");
+
+          if (youshi) {
+            youshi = false;
+            save.innerText = "✔";
+            sr.style.borderBottomColor = "#fff";
+            sr.value = "";
+            sr.readOnly = false;
+            window.localStorage.removeItem("shi");
+          }
+          else {
+            youshi = true;
+            save.innerText = "✘";
+            sr.style.borderBottomColor = "transparent";
+            sr.readOnly = true;
+            window.localStorage.setItem("shi", sr.value);
+          }
+        }
+
+        let data = window.localStorage.getItem("shi");
+        if (data) {
+          document.getElementById("sr").value = data;
+          change();
+        }
+
+
+
+    var date = null;
+    date = setTimeout(time,0); //开始运行
+    function time() {
+        clearTimeout(date); //清除定时器
+        dt = new Date();
+        var y = dt.getFullYear();
+        var mt = dt.getMonth() + 1;
+        var day = dt.getDate();
+        var h = dt.getHours(); //获取时
+        var m = dt.getMinutes(); //获取分
+        var s = dt.getSeconds(); //获取秒
+        document.querySelector(".showTime").innerHTML =
+            y +
+            "年" +
+            mt +
+            "月" +
+            day +
+            "-" +
+            h +
+            "时" +
+            m +
+            "分" +
+            s +
+            "秒";
+        t = setTimeout(time, 1000); //设定定时器，循环运行
+    }
+
+</script>
+</body>
+</html>
